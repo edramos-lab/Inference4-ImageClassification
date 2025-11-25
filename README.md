@@ -1,11 +1,11 @@
-# Brain Cancer Multi-Class Classification
+# Multi-Class Classification
 
-A comprehensive deep learning project for brain tumor classification using PyTorch, featuring advanced training, evaluation, and deployment capabilities.
+A comprehensive deep learning project for multi classification using PyTorch, featuring advanced training, evaluation, and deployment capabilities.
 
 ## 🚀 Features
 
-- **Multi-class Classification**: Supports 4 tumor types (Glioma, Meningioma, Pituitary, No Tumor)
-- **Advanced Models**: Swin Transformer, ConvNeXt, and other SOTA architectures
+- **Multi-class Classification**: Supports multi class (Glioma, Meningioma, Pituitary, No Tumor)
+- **Advanced Models**: Swin Transformer, ConvNeXt, and other SOTA architectures (efficientvit)
 - **Cross-Validation**: K-Fold and Stratified K-Fold options
 - **Learning Rate Scheduling**: ReduceLROnPlateau with configurable parameters
 - **Comprehensive Metrics**: Accuracy, Precision, Recall, F1-Score, MCC, Confusion Matrix, ROC Curves
