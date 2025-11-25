@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.jetson
+
     image: jetson-benchmark
     container_name: jetson-benchmark
     runtime: nvidia
@@ -12,21 +13,29 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility
       - DISPLAY=${DISPLAY}
+
     volumes:
-      # Mount host directories into the container
-      - /home/jetsonagx/exported_models:/workspace/exported_models
-      - /home/jetsonagx/inference-result:/workspace/results
-      - /home/jetsonagx/Brain-Cancer-MultiClass/Brain-Tumor-Classification2/Testing:/workspace/test_folder
-      - /usr/src/tensorrt/bin/trtexec:/usr/local/bin/trtexec jetson-benchmark
+      # Model export + results
+      - /home/jetsonorin/exported_models:/workspace/exported_models
+      - /home/jetsonorin/inference-result:/workspace/results
 
-      - ./models:/workspace/models
-      
-      # Optional: Mount scripts if you want to edit them live
+      # Your dataset
+      - /home/jetsonorin/dataset/test/Benign:/workspace/test_folder
+
+      # FIXED line (removed the accidental: jetson-benchmark)
+      - /usr/src/tensorrt/bin/trtexec:/usr/local/bin/trtexec
+
+      # This one was being IGNORED before — now it works
+      - /home/jetsonorin/models:/workspace/models
+
+      # Live editing scripts
       - ./benchmark_models.py:/workspace/benchmark_models.py
-      - ./benchmark_models_plotly.py:/workspace/benchmark_models_plotly_jetson.py
+      - ./benchmark_models_plotly_jetson.py:/workspace/benchmark_models_plotly_jetson.py
+      - ./benchmark_models_plotly.py:/workspace/benchmark_models_plotly.py
       - ./run_benchmark_example.py:/workspace/run_benchmark_example.py
-
-      # Optional: GUI forwarding for any plot windows (if using matplotlib directly)
+      - ./export_models.py:/workspace/export_models.py
+      - ./convert_to_trt.py:/workspace/convert_to_trt.py
+      # GUI X11
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
 
     devices:
